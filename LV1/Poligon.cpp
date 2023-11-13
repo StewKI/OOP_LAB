@@ -2,6 +2,7 @@
 
 #include<iostream>
 #include<math.h>
+#include<memory>
 
 Poligon::Poligon()
 {
@@ -15,6 +16,15 @@ Poligon::Poligon(int broj_temena)
 	this->broj_temena = broj_temena;
 	x = new int[broj_temena];
 	y = new int[broj_temena];
+}
+
+Poligon::Poligon(const Poligon& p)
+{
+	broj_temena = p.broj_temena;
+	x = new int[broj_temena];
+	y = new int[broj_temena];
+	std::copy(p.x, p.x + p.broj_temena, x);
+	std::copy(p.y, p.y + p.broj_temena, y);
 }
 
 Poligon::~Poligon()
@@ -34,14 +44,6 @@ double Poligon::obim()
 	return krajnji_obim;
 }
 
-void Poligon::unos_temena()
-{
-	for (int i = 0; i < broj_temena; i++)
-	{
-		std::cin >> x[i] >> y[i];
-	} 
-}
-
 void Poligon::najudaljenije_tacke(int* x1, int* y1, int* x2, int* y2)
 {
 	double max_udaljenost = -1.0;
@@ -59,15 +61,6 @@ void Poligon::najudaljenije_tacke(int* x1, int* y1, int* x2, int* y2)
 				max_udaljenost = tren_udaljenost;
 			}
 		}
-	}
-}
-
-void Poligon::prikaz_temena()
-{
-	std::cout << "Temena:" << std::endl;
-	for (int i = 0; i < broj_temena; i++)
-	{
-		std::cout << x[i] << ":" << y[i] << std::endl;
 	}
 }
 
@@ -97,7 +90,55 @@ void Poligon::izbaci_jedno_teme(int n)
 	}
 }
 
+void Poligon::preslikaj_x_osa()
+{
+	for (int i = 0; i < broj_temena; i++)
+	{
+		y[i] = -(y[i]);
+	}
+}
+
+void Poligon::preslikaj_y_osa()
+{
+	for (int i = 0; i < broj_temena; i++)
+	{
+		x[i] = -(x[i]);
+	}
+}
+
+Poligon& Poligon::operator=(const Poligon& p)
+{
+	if (x != nullptr) delete[] x;
+	if (y != nullptr) delete[] y;
+
+	broj_temena = p.broj_temena;
+	x = new int[broj_temena];
+	y = new int[broj_temena];
+	std::copy(p.x, p.x + p.broj_temena, x);
+	std::copy(p.y, p.y + p.broj_temena, y);
+
+	return *this;
+}
+
 double Poligon::udaljenost(int x1, int y1, int x2, int y2)
 {
 	return sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+}
+
+std::istream& operator>>(std::istream& stream, const Poligon& poligon)
+{
+	for (int i = 0; i < poligon.broj_temena; i++)
+	{
+		stream >> poligon.x[i] >> poligon.y[i];
+	} 
+	return stream;
+}
+
+std::ostream& operator<<(std::ostream& stream, const Poligon& poligon)
+{
+	for (int i = 0; i < poligon.broj_temena; i++)
+	{
+		stream << poligon.x[i] << ":" << poligon.y[i] << std::endl;
+	}
+	return stream;
 }

@@ -1,22 +1,40 @@
 #include "Poligon.h"
+#include "Slika.h"
 #include <iostream>
 
 int main()
 {
-	Poligon p1(3);
-	p1.unos_temena();
-	std::cout << p1.obim() << std::endl;
-	
-	Poligon* p2 = new Poligon(3);
+	int n;
+	std::cin >> n;
+	Poligon* p1 = new Poligon(n);
+	std::cin >> *p1;
+	p1->preslikaj_x_osa();
+	std::cout << "Preslikavanje po x:" << std::endl << *p1;
+	p1->preslikaj_y_osa();
+	std::cout << "Preslikavanje po x pa po y:" << std::endl << *p1;
 
-	p2->unos_temena();
-	std::cout << "Broj temena: " << p2->get_broj_temena() << std::endl;
-	int x1, y1, x2, y2;
-	p2->najudaljenije_tacke(&x1, &y1, &x2, &y2);
-	std::cout << "Najudaljenjije tacke:" << std::endl
-		      << x1 << ":" << y1 << std::endl
-		      << x2 << ":" << y2 << std::endl;
-	p2->izbaci_jedno_teme(1);
-	p2->prikaz_temena();
+	int m;
+	std::cin >> m;
+	Poligon* p2 = new Poligon(m);
+	std::cin >> *p2;
+	p2->preslikaj_x_osa();
+	std::cout << "Preslikavanje po x:" << std::endl << *p2;
+	p2->preslikaj_y_osa();
+	std::cout << "Preslikavanje po x pa po y:" << std::endl << *p2;
+
+	int k;
+	std::cin >> k;
+	Slika slika(k);
+	slika.dodaj(*p1);
+	slika.dodaj(*p2);
+	for (int i = 2; i < k; i++)
+	{
+		int np;
+		std::cin >> np;
+		Poligon p(np);
+		std::cin >> p;
+		slika.dodaj(p);
+	}
+	std::cout << slika;
 
 }

@@ -18,12 +18,18 @@
     <ClInclude Include="Poligon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Slika.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Poligon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Slika.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
